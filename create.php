@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vérifier que tous les champs sont remplis avant l'insertion
     if (!empty($nom) && !empty($email) && !empty($age)) {
         // Préparation de la requête SQL pour insérer un nouvel utilisateur
-        $stmt = $pdo->prepare("INSERT INTO users (nom, email, age) VALUES (:nom, :email, :age)");
+        $stmt = $pdo->prepare("INSERT INTO etudiants (nom, email, age) VALUES (:nom, :email, :age)");
 
         // Liaison des valeurs avec les paramètres de la requête préparée
         $stmt->bindParam(':nom', $nom);

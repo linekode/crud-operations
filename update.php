@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Vérification que tous les champs sont remplis
     if (!empty($nom) && !empty($email) && !empty($age)) {
         // Préparation de la requête pour mettre à jour les informations de l'utilisateur
-        $stmt = $pdo->prepare("UPDATE users SET nom = :nom, email = :email, age = :age WHERE id = :id");
+        $stmt = $pdo->prepare("UPDATE etudiants SET nom = :nom, email = :email, age = :age WHERE id = :id");
 
         // Liaison des valeurs avec la requête préparée
         $stmt->bindParam(':id', $id);
