@@ -114,6 +114,12 @@ form button:hover {
   background: #0056b3;
 }
 
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 /* Boutons */
 .btn {
   display: inline-block;

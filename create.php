@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
 // Inclusion du fichier de connexion à la base de données
 require 'db.php';
 
@@ -43,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <?php include './navbar.php' ?>
     <div class="container">
         <h1>Ajouter un utilisateur</h1>
 

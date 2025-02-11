@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
 require 'db.php';
 $stmt = $pdo->query("SELECT * FROM etudiants");
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -15,11 +20,15 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+    <?php include './navbar.php' ?>
     <div class="container">
         <h1>Liste des utilisateurs</h1>
 
         <!-- Lien pour ajouter un nouvel utilisateur -->
+        <div class="btn-group">
         <a href="./create.php" class="btn">Ajouter un utilisateur</a>
+        <a href="./logout.php" class="btn">Se déconnecter</a>
+        </div>
 
         <table>
             <thead>

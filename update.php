@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
 // Inclusion du fichier de connexion à la base de données
 require 'db.php';
 
@@ -6,7 +11,7 @@ require 'db.php';
 $id = $_GET['id'];
 
 // Préparation de la requête pour récupérer les informations de l'utilisateur
-$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
+$stmt = $pdo->prepare("SELECT * FROM etudiants WHERE id = :id");
 
 // Liaison de la valeur de l'ID avec la requête préparée
 $stmt->bindParam(':id', $id);
@@ -15,7 +20,7 @@ $stmt->bindParam(':id', $id);
 $stmt->execute();
 
 // Récupération des informations de l'utilisateur sous forme de tableau associatif
-$user = $stmt->fetch();
+$etudiant = $stmt->fetch();
 
 // Vérifier si le formulaire a été soumis (méthode POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -59,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <?php include './navbar.php' ?>
     <div class="container">
         <h1>Modifier un utilisateur</h1>
 
@@ -66,15 +72,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST">
             <!-- Champ pour modifier le nom -->
             <label for="nom">Nom :</label>
-            <input type="text" name="nom" id="nom" value="<?= htmlspecialchars($user['nom']) ?>" required>
+            <input type="text" name="nom" id="nom" value="<?= htmlspecialchars($etudiant['nom']) ?>" required>
 
             <!-- Champ pour modifier l'email -->
             <label for="email">Email :</label>
-            <input type="email" name="email" id="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+            <input type="email" name="email" id="email" value="<?= htmlspecialchars($etudiant['email']) ?>" required>
 
             <!-- Champ pour modifier l'âge -->
             <label for="age">Âge :</label>
-            <input type="number" name="age" id="age" value="<?= htmlspecialchars($user['age']) ?>" required>
+            <input type="number" name="age" id="age" value="<?= htmlspecialchars($etudiant['age']) ?>" required>
 
             <!-- Bouton pour soumettre le formulaire -->
             <button type="submit">Modifier</button>
